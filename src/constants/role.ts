@@ -1,0 +1,6 @@
+export const ROLE = {
+  FARMER: 'FARMER',
+  FACTORY: 'FACTORY',
+  LOGISTIC: 'LOGISTIC',
+  RETAILER: 'RETAILER'
+} as const

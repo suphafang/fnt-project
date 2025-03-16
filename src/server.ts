@@ -10,9 +10,23 @@ async function main(): Promise<void> {
   try {
     await database.connect()
     const app = new Elysia()
-      .use(swagger({path: '/api'}))
+      .use(swagger({
+        path: '/api',
+        documentation: {
+          components: {
+            securitySchemes: {
+              bearerAuth: {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT'
+              }
+            }
+          }
+        }
+      }))
       .use(cors({ origin: 'http://localhost:3000' }))
       .use(controllers.auth)
+      .use(controllers.user)
       .listen(env.PORT)
     console.log(`Server is running at ${app.server?.hostname}:${app.server?.port}`)
   } catch (error) {

@@ -18,7 +18,7 @@ const userSchema = new Schema({
   email: { type: String, required: true },
   phone: { type: String, required: true },
   password: { type: String, required: true },
-  role: { type: String, enum: ['farmer', 'factory', 'logistic', 'retailer'], default: null },
+  role: { type: String, enum: ['FARMER', 'FACTORY', 'LOGISTIC', 'RETAILER'], default: null },
   generalInformation: { type: generalInformationSchema, default: null },
 }, {
   timestamps: true,
