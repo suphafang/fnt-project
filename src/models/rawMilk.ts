@@ -101,7 +101,7 @@ const rawMilkSchema = new Schema({
   status: { type: String, required: true, enum: Object.values(RAW_MILK_STATUS), default: 'PENDING' },
   milkTankInfo: { type: milkTankInfoSchema, required: true },
   shippingAddress: { type: shippingAddressSchema, required: true },
-  recipientInformation: { type: recipientInformationSchema, default: null },
+  recipientInformationSchema: { type: recipientInformationSchema, default: null },
   qualify: { type: qualifySchema, default: null },
 }, {
   timestamps: true,

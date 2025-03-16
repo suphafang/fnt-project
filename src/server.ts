@@ -28,6 +28,7 @@ async function main(): Promise<void> {
       .use(controllers.auth)
       .use(controllers.user)
       .use(controllers.rawMilk)
+      .use(controllers.product)
       .listen(env.PORT)
     console.log(`Server is running at ${app.server?.hostname}:${app.server?.port}`)
   } catch (error) {
