@@ -8,10 +8,13 @@
   "dependencies": {
     "@elysiajs/cors": "^1.2.0",
     "@elysiajs/swagger": "^1.2.2",
+    "bcryptjs": "^3.0.2",
     "elysia": "latest",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.1"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.9",
     "bun-types": "latest"
   },
   "module": "src/server.js"
