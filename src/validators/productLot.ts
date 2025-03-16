@@ -1,5 +1,5 @@
 import { t } from "elysia";
-import { PRODUCT_LOT_STATUS } from "../constants/productLotStatus";
+import { PRODUCT_LOT_STATUS, RECEIVING_STATUS } from "../constants/productLotStatus";
 
 const generalInformation = t.Object({
   productName: t.String({ examples: ['Product Name'] }),
@@ -68,6 +68,32 @@ const shippingAddress = t.Object({
   location: t.String({ examples: ["Location"] }),
 })
 
+const receivingGeneralInformation = t.Object({
+  receivingStatus: t.Enum(RECEIVING_STATUS, { examples: Object.values(RECEIVING_STATUS) }),
+  factoryName: t.String({ examples: ["Factory Name"] }),
+  productLot: t.String({ examples: ["Product Lot ID"] }),
+  personInCharge: t.String({ examples: ["Person In Charge"] }),
+})
+
+const receivingProductDetail = t.Object({
+  pickupTime: t.String({ format: 'date-time', examples: ["2023-01-01T00:00:00.000Z"] }),
+  deliverTime: t.String({ format: 'date-time', examples: ["2023-01-01T00:00:00.000Z"] }),
+  quantity: t.Object({
+    value: t.Number({ examples: [1] }),
+    suffix: t.String({ examples: ['Unit'] })
+  }),
+  temperature: t.Object({
+    value: t.Number({ examples: [1] }),
+    suffix: t.String({ examples: ['C'] }),
+  }),
+  address: shippingAddress,
+})
+
+export const receivingData = t.Object({
+  generalInformation: receivingGeneralInformation,
+  productDetail: receivingProductDetail
+})
+
 export const productLotObject = t.Object({
   _id: t.String({ examples: ['Product Lot ID'] }),
   user: t.String({ examples: ['User ID'] }),
@@ -77,6 +103,7 @@ export const productLotObject = t.Object({
   qualify,
   nutrition,
   shippingAddress,
+  receivingData: t.Nullable(receivingData)
 })
 
 export const createProductLotBody = t.Object({

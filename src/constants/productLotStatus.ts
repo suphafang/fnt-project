@@ -5,3 +5,9 @@ export const PRODUCT_LOT_STATUS = {
   COMPLETED: 'COMPLETED',
   RECEIVED: 'RECEIVED',
 } as const
+
+export const RECEIVING_STATUS = {
+  BEFORE: 'BEFORE',
+  AFTER: 'AFTER',
+  DURING: 'DURING',
+}

@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose"
-import { PRODUCT_LOT_STATUS } from "../constants/productLotStatus"
+import { PRODUCT_LOT_STATUS, RECEIVING_STATUS } from "../constants/productLotStatus"
 
 const generalInformationSchema = {
   productName: { type: String, required: true },
@@ -79,14 +79,45 @@ const shippingAddressSchema = {
   location: { type: String, required: true },
 }
 
+const receivingGeneralInformationSchema = {
+  receivingStatus: { type: String, required: true, enum: Object.values(RECEIVING_STATUS) },
+  factoryName: { type: String, required: true },
+  productLot: { type: Schema.Types.ObjectId, ref: 'ProductLot', required: true },
+  personInCharge: { type: String, required: true },
+}
+
+const receivingProductDetailSchema = {
+  pickupTime: { type: Date, required: true },
+  deliverTime: { type: Date, required: true },
+  quantity: {
+    type: 'object', properties: {
+      value: { type: Number, required: true },
+      suffix: { type: String, required: true }
+    }
+  },
+  temperature: {
+    type: 'object', properties: {
+      value: { type: Number, required: true },
+      suffix: { type: String, required: true }
+    }
+  },
+  address: shippingAddressSchema,
+}
+
+const receivingDataSchema = {
+  generalInformation: receivingGeneralInformationSchema,
+  productDetail: receivingProductDetailSchema
+}
+
 const productLotSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  status: { type: String, required: true, enum: Object.values(PRODUCT_LOT_STATUS), default: 'PENDING' },
+  status: { type: String, required: true, enum: Object.values(PRODUCT_LOT_STATUS), default: 'SENDING' },
   generalInformation: { type: generalInformationSchema, required: true },
   milkTanks: { type: [Schema.Types.ObjectId], ref: 'MilkTank', required: true },
   qualify: { type: qualifySchema, required: true },
   nutrition: { type: nutritionSchema, required: true },
   shippingAddress: { type: shippingAddressSchema, required: true },
+  receivingData: { type: receivingDataSchema, default: null },
 }, {
   timestamps: true,
   versionKey: false
