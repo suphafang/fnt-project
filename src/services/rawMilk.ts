@@ -65,10 +65,23 @@ const receive = async (id: string, data: typeof receiveRawMilkBody.static): Prom
   return JSON.parse(JSON.stringify(rawMilk))
 }
 
+const getAvailableTanks = async (userID: string): Promise<typeof getByIDResponse.static[]> => {
+  const user = await userModel.findById(userID)
+  
+  if (!user) {
+    throw new Error('User not found')
+  }
+
+  const tanks = await rawMilkModel.find({ status: RAW_MILK_STATUS.RECEIVED, 'shippingAddress.email': user.email, used: false })
+
+  return JSON.parse(JSON.stringify(tanks))
+}
+
 export default {
   create,
   getByID,
   getByUserID,
   toReceive,
   receive,
+  getAvailableTanks,
 }

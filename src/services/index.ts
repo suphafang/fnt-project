@@ -1,5 +1,6 @@
 import auth from "./auth";
 import product from "./product";
+import productLot from "./productLot";
 import rawMilk from "./rawMilk";
 import user from "./user";
 
@@ -8,4 +9,5 @@ export default {
   user,
   rawMilk,
   product,
+  productLot,
 }

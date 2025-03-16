@@ -55,4 +55,12 @@ export default new Elysia({
       },
       isAuthenticated: true
     })
+    .get('/available-tanks', ({ userId }) => services.rawMilk.getAvailableTanks(userId), {
+      response: { 200: t.Array(getByIDResponse) },
+      detail: {
+        security: [{ bearerAuth: [] }],
+        description: 'Get available tanks'
+      },
+      isAuthenticated: true
+    })
   )
