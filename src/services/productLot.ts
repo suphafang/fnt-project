@@ -67,9 +67,22 @@ const toReceive = async (userID: string): Promise<typeof productLotObject.static
   return JSON.parse(JSON.stringify(productLots))
 }
 
+const received = async (userID: string): Promise<typeof productLotObject.static[]> => {
+  const user = await userModel.findById(userID)
+
+  if (!user) {
+    throw new Error('User not found')
+  }
+
+  const productLots = await productLotModel.find({ status: PRODUCT_LOT_STATUS.RECEIVED, 'shippingAddress.email': user.email })
+
+  return JSON.parse(JSON.stringify(productLots))
+}
+
 export default {
   create,
   getByID,
   receive,
   toReceive,
+  received,
 }

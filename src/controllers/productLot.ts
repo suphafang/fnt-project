@@ -46,4 +46,12 @@ export default new Elysia({
       },
       isAuthenticated: true
     })
+    .get('/received', ({ userId }) => services.productLot.received(userId), {
+      response: { 200: t.Array(productLotObject) },
+      detail: {
+        security: [{ bearerAuth: [] }],
+        description: 'Get product lots received'
+      },
+      isAuthenticated: true
+    })
   )
