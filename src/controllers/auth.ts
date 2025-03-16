@@ -1,5 +1,5 @@
 import Elysia from "elysia";
-import { signUpBody, signUpResponse } from "../validators/auth";
+import { loginBody, loginResponse, signUpBody, signUpResponse } from "../validators/auth";
 import services from "../services";
 
 export default new Elysia({
@@ -12,5 +12,10 @@ export default new Elysia({
       body: signUpBody,
       response: { 200: signUpResponse },
       detail: { description: 'Sign up user' }
+    })
+    .post('/login', ({ body }) => services.auth.login(body.email, body.password), {
+      body: loginBody,
+      response: { 200: loginResponse },
+      detail: { description: 'Login user' }
     })
   )

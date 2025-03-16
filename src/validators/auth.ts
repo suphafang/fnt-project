@@ -10,3 +10,12 @@ export const signUpBody = t.Object({
 export const signUpResponse = t.Object({
   token: t.String({ examples: ["jwt-token"] }),
 })
+
+export const loginBody = t.Object({
+  email: t.String({ format: "email", examples: ["example@email.com"] }),
+  password: t.String({ examples: ["P@ssw0rd"], minLength: 8 }),
+})
+
+export const loginResponse = t.Object({
+  token: t.String({ examples: ["jwt-token"] }),
+})
