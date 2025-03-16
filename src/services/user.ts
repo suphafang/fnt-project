@@ -1,7 +1,7 @@
 import { ROLE } from "../constants/role"
 import S3 from "../models/s3"
 import userModel from "../models/user"
-import { setupRoleResponse, updateGeneralInformationBody, updateGeneralInformationResponse } from "../validators/user"
+import { getByIDResponse, setupRoleResponse, updateGeneralInformationBody, updateGeneralInformationResponse } from "../validators/user"
 
 const setupRole = async (userID: string, role: keyof typeof ROLE): Promise<typeof setupRoleResponse.static> => {
   const user = await userModel.findById(userID)
@@ -61,7 +61,18 @@ const setupGeneralInformation = async (userID: string, data: typeof updateGenera
   }
 }
 
+const getByID = async (userID: string): Promise<typeof getByIDResponse.static> => {
+  const user = await userModel.findById(userID)
+
+  if (!user) {
+    throw new Error('User not found')
+  }
+
+  return JSON.parse(JSON.stringify(user))
+}
+
 export default {
   setupRole,
   setupGeneralInformation,
+  getByID,
 }
