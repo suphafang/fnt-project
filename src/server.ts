@@ -27,6 +27,7 @@ async function main(): Promise<void> {
       .use(cors({ origin: '*' }))
       .use(controllers.auth)
       .use(controllers.user)
+      .use(controllers.rawMilk)
       .listen(env.PORT)
     console.log(`Server is running at ${app.server?.hostname}:${app.server?.port}`)
   } catch (error) {
