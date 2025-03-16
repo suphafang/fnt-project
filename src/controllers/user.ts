@@ -1,6 +1,6 @@
 import Elysia from "elysia";
 import services from "../services";
-import { setupRoleBody, setupRoleResponse } from "../validators/user";
+import { setupRoleBody, setupRoleResponse, updateGeneralInformationBody, updateGeneralInformationResponse } from "../validators/user";
 import middlewares from "../middlewares";
 
 export default new Elysia({
@@ -18,5 +18,14 @@ export default new Elysia({
         description: 'Setup user role'
       },
       isAuthenticated: true
+    })
+    .post('/update-general-information', ({ body, userId }) => services.user.setupGeneralInformation(userId, body), {
+      body: updateGeneralInformationBody,
+      response: { 200: updateGeneralInformationResponse },
+      detail: {
+        security: [{ bearerAuth: [] }],
+        description: 'Update user general information',
+      },
+      isAuthenticated: true,
     })
   )

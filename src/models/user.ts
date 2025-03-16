@@ -1,5 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 
+const organicCertificateSchema = new Schema({
+  filename: { type: String, required: true },
+  key: { type: String, required: true },
+})
+
 const generalInformationSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -9,7 +14,7 @@ const generalInformationSchema = new Schema({
   province: { type: String, required: true },
   district: { type: String, required: true },
   subdistrict: { type: String, required: true },
-  organicCertificate: { type: [String], default: [] },
+  organicCertificate: { type: [organicCertificateSchema], default: [] },
   location: { type: String, required: true },
 })
 

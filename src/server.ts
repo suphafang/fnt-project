@@ -24,7 +24,7 @@ async function main(): Promise<void> {
           }
         }
       }))
-      .use(cors({ origin: 'http://localhost:3000' }))
+      .use(cors({ origin: '*' }))
       .use(controllers.auth)
       .use(controllers.user)
       .listen(env.PORT)
