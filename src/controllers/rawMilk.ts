@@ -2,7 +2,7 @@ import Elysia, { t } from "elysia";
 
 import services from "../services";
 import middlewares from "../middlewares";
-import { createRawMilkBody, createRawMilkResponse, getByIDParams, getByIDResponse } from "../validators/rawMilk";
+import { createRawMilkBody, createRawMilkResponse, getByIDParams, getByIDResponse, receiveRawMilkBody } from "../validators/rawMilk";
 
 export default new Elysia({
   detail: {
@@ -34,6 +34,24 @@ export default new Elysia({
       detail: {
         security: [{ bearerAuth: [] }],
         description: 'Get raw milk by user id'
+      },
+      isAuthenticated: true
+    })
+    .get('/to-receive', ({ userId }) => services.rawMilk.toReceive(userId), {
+      response: { 200: t.Array(getByIDResponse) },
+      detail: {
+        security: [{ bearerAuth: [] }],
+        description: 'Get raw milk to receive'
+      },
+      isAuthenticated: true
+    })
+    .post('/:id/receive', ({ params, body }) => services.rawMilk.receive(params.id, body), {
+      params: getByIDParams,
+      body: receiveRawMilkBody,
+      response: { 200: getByIDResponse },
+      detail: {
+        security: [{ bearerAuth: [] }],
+        description: 'Receive raw milk'
       },
       isAuthenticated: true
     })

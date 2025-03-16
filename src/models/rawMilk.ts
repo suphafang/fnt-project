@@ -54,11 +54,55 @@ const shippingAddressSchema = new Schema({
   location: { type: String, required: true },
 })
 
+const recipientInformationSchema = new Schema({
+  personInCharge: { type: String, required: true },
+  location: { type: String, required: true },
+  pickupDate: { type: Date, required: true },
+})
+
+const qualifySchema = new Schema({
+  quantity: {
+    type: 'object', properties: {
+      value: { type: Number, required: true },
+      suffix: { type: String, required: true }
+    }
+  },
+  temperature: {
+    type: 'object', properties: {
+      value: { type: Number, required: true },
+      suffix: { type: String, required: true }
+    }
+  },
+  phOfMilk: { type: Number, required: true },
+  fat: { type: Number, required: true },
+  protein: { type: Number, required: true },
+  bacteriaTesting: {
+    type: 'object', properties: {
+      value: { type: Boolean, required: true },
+      additionalInfo: { type: String },
+    }
+  },
+  contaminants: {
+    type: 'object', properties: {
+      value: { type: Boolean, required: true },
+      additionalInfo: { type: String },
+    }
+  },
+  abnormalCharacteristics: {
+    type: 'object', properties: {
+      value: { type: Boolean, required: true },
+      choices: { type: [String], required: true },
+    }
+  }
+})
+
 const rawMilkSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   status: { type: String, required: true, enum: Object.values(RAW_MILK_STATUS), default: 'PENDING' },
   milkTankInfo: { type: milkTankInfoSchema, required: true },
   shippingAddress: { type: shippingAddressSchema, required: true },
+  recipientInformation: { type: recipientInformationSchema, default: null },
+  qualify: { type: qualifySchema, default: null },
 }, {
   timestamps: true,
   versionKey: false
