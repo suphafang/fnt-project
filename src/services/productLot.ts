@@ -1,4 +1,4 @@
-import { createProductLotBody, productLotObject, receivingData } from "../validators/productLot";
+import { createProductLotBody, productLotObject, receivingData, getByIDResponse } from "../validators/productLot";
 import productLotModel from "../models/productLot";
 import rawMilkModel from "../models/rawMilk";
 import { PRODUCT_LOT_STATUS } from "../constants/productLotStatus";
@@ -18,6 +18,12 @@ const create = async (userID: string, data: typeof createProductLotBody.static):
     { _id: { $in: data.milkTanks }, },
     { $set: { used: true, } }
   )
+
+  return JSON.parse(JSON.stringify(productLot))
+}
+
+const getByUserID = async (userID: string): Promise<typeof productLotObject.static[]> => {
+  const productLot = await productLotModel.find({ user: userID })
 
   return JSON.parse(JSON.stringify(productLot))
 }
@@ -82,6 +88,7 @@ const received = async (userID: string): Promise<typeof productLotObject.static[
 export default {
   create,
   getByID,
+  getByUserID,
   receive,
   toReceive,
   received,

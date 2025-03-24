@@ -19,6 +19,14 @@ export default new Elysia({
       },
       isAuthenticated: true
     })
+    .get('/me', ({ userId }) => services.productLot.getByUserID(userId), {
+      response: { 200: t.Array(productLotObject) },
+      detail: {
+        security: [{ bearerAuth: [] }],
+        description: 'Get product lot by user id'
+      },
+      isAuthenticated: true
+    })
     .get('/:id', ({ params }) => services.productLot.getByID(params.id), {
       params: getByIDParams,
       response: { 200: productLotObject },
