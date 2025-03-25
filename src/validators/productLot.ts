@@ -98,7 +98,7 @@ export const productLotObject = t.Object({
   _id: t.String({ examples: ['Product Lot ID'] }),
   user: t.String({ examples: ['User ID'] }),
   status: t.Enum(PRODUCT_LOT_STATUS, { examples: Object.values(PRODUCT_LOT_STATUS) }),
-  milkTanks: t.Array(t.String({ examples: ['Milk Tank ID'] })),
+  milkTanks: t.Array(t.String({ examples: ["Milk Tank ID"] })),
   generalInformation,
   qualify,
   nutrition,
@@ -107,7 +107,7 @@ export const productLotObject = t.Object({
 })
 
 export const createProductLotBody = t.Object({
-  milkTanks: t.Array(t.String({ examples: ['Milk Tank ID'] })),
+  milkTanks: t.Array(t.String({ examples: ["Milk Tank ID"] })),
   generalInformation,
   qualify,
   nutrition,

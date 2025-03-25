@@ -48,7 +48,7 @@ export const getByIDResponse = t.Object({
   email: t.String({ format: 'email', examples: ['example@email.com'] }),
   phone: t.String({ examples: ['0999999999'], minLength: 10, maxLength: 10 }),
   role: t.Nullable(t.Enum(ROLE, { examples: Object.values(ROLE) })),
-  generalInformation: t.Optional(t.Object({
+  generalInformation: t.Nullable(t.Object({
     firstName: t.String({ examples: ['John'] }),
     lastName: t.String({ examples: ['Doe'] }),
     email: t.String({ format: 'email', examples: ['example@email.com'] }),
