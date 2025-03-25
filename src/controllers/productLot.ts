@@ -19,7 +19,7 @@ export default new Elysia({
       },
       isAuthenticated: true
     })
-    .get('/me', ({ userId }) => services.productLot.getByUserID(userId), {
+    .get('/me', async ({ userId }) => await services.productLot.getByUserID(userId), {
       response: { 200: t.Array(productLotObject) },
       detail: {
         security: [{ bearerAuth: [] }],
